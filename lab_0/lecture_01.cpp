@@ -32,11 +32,31 @@ At the end, loop through both arrays and print letters with counts[i] > 0.
 
 #include <cstdio>
 #include <cstring>
+#include <cstdint>
 #define STRING_SIZE 200
 
 int main(){
+	uint8_t i = 0;
 	char myString[STRING_SIZE + 1];
+	char letters[] = {"abcdefghijklmnopqrstuvwxyz"};
+	uint32_t letterCount[27] = {0};
 
-	printf("Please enter a string:\n");
+	printf("Please enter a phrase with maximum of 200 characters:\n");
+	while(scanf("%200[^\n]", myString) != 1 && scanf("%[^\n]") == 0); // the square brackets assume type char
+
+	for(i = 0; i < strlen(myString); i++){
+		char curChar = strlwr(myString)[i];
+		if(curChar >= 'a' && curChar <= 'z'){ 
+			letterCount[curChar - 'a']++; // using characters as numbers for determining the index
+		}
+	}
+
+	printf("You've entered the phrase: %s\n", myString);
+	for(i = 0; i < strlen(letters); i++){
+		if(letterCount[i] > 0){
+			printf("%c: %d\n", letters[i], letterCount[i]);
+		}
+	}
+
 	return 0;
 }
