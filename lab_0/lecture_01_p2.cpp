@@ -37,3 +37,43 @@ strtok( ) modifies the original string (by inserting \0 terminators).
 
 Example: Splitting a Sentence into Words
 */
+
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+
+void ReverseWord(char *word);
+
+
+int main(){
+	char myString[] = "Hello world C programming !";
+	char *token;
+	int count;
+
+	printf("%s\n", myString);
+
+	token = strtok(myString, " ");
+	while(NULL != token){
+		ReverseWord(token);
+		printf("%s ", token);
+		token = strtok(NULL, " ");
+		if(NULL == token) printf("\n");
+	}
+	
+	return 0;
+}
+
+void ReverseWord(char *word){
+	// 01234 
+	// hello
+	// 43210
+	int  nextIndex, count = 0, wordLength = strlen(word);
+	char nextChar;
+
+	for(count = 0; count < wordLength/2; count++){
+		nextIndex = wordLength - (1 + count);
+		nextChar = *(word + nextIndex);
+		*(word + nextIndex) = *(word + count);
+		*(word + count) = nextChar;
+	}
+}
